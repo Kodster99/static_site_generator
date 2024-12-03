@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE specific files (if you use them)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build output (if you have any)
+dist/
+build/

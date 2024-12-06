@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNode, LeafNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -94,3 +94,65 @@ class TestHTMLNode(unittest.TestCase):
         value="Simple paragraph"
     )
         assert node.to_html() == '<p>Simple paragraph</p>'
+
+    def test_parent_node_children(self):
+    # Create leaf nodes
+        child1 = LeafNode(tag="b", value="Bold text")
+        child2 = LeafNode(tag=None, value="Regular text")
+
+    # Create another parent node if you'd like nested structures
+        nested_parent = ParentNode(
+            tag="div", 
+            children=[LeafNode(tag="i", value="Italic text")]
+    )
+
+    # Create the parent node with children (could include the nested one)
+        node = ParentNode(
+            tag="p",
+            children=[child1, child2, nested_parent]
+    )
+
+    # Assertions to test the behavior, e.g., converting to HTML
+        self.assertEqual(node.to_html(), "<p><b>Bold text</b>Regular text<div><i>Italic text</i></div></p>")
+
+    def test_parent_no_tag(self):
+        child1 = LeafNode(tag="c", value="Plain text")
+        child2 = LeafNode(tag=None, value="Regular text")
+
+        with self.assertRaises(ValueError):
+            ParentNode(
+                tag=None,
+                children=[child1, child2]
+        )
+    
+    def test_parent_no_children(self):
+        with self.assertRaises(ValueError):
+            ParentNode(
+                tag="a",
+                children=[]
+        )
+            
+    def test_parent_node_multiple_nest(self):
+    # Create leaf nodes
+        child1 = LeafNode(tag="b", value="Bold text")
+        child2 = LeafNode(tag=None, value="Regular text")
+
+    # Create another parent node if you'd like nested structures
+        nested_parent1 = ParentNode(
+            tag="div", 
+            children=[LeafNode(tag="i", value="Italic text")]
+    )
+        nested_parent2 = ParentNode(
+            tag="div", 
+            children=[LeafNode(tag="r", value="Raw text")]
+    )
+
+    # Create the parent node with children (could include the nested one)
+        node = ParentNode(
+            tag="p",
+            children=[child1, child2, nested_parent1, nested_parent2]
+    )
+
+    # Assertions to test the behavior, e.g., converting to HTML
+        self.assertEqual(node.to_html(), "<p><b>Bold text</b>Regular text<div><i>Italic text</i></div><div><r>Raw text</r></div></p>")
+            

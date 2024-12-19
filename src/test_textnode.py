@@ -1,7 +1,9 @@
 import unittest
+import os
 
-from textnode import TextNode, TextType
+from textnode import split_nodes_delimiter, TextNode, TextType
 
+print("Current directory:", os.getcwd())
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
@@ -33,6 +35,18 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is a link", TextType.LINK, None)
         node2 = TextNode("This is a link", TextType.LINK, None)
         self.assertEqual(node, node2)
+
+    def test_simple_split(self):
+         node = TextNode("Text with a **bold** word", TextType.NORMAL_TEXT)
+
+         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD_TEXT)
+
+         expected_output = [
+             TextNode("Text with a ", TextType.NORMAL_TEXT),
+             TextNode("bold", TextType.BOLD_TEXT),
+             TextNode(" word", TextType.NORMAL_TEXT)
+         ]
+         self.assertEqual(new_nodes, expected_output)
     
 
 

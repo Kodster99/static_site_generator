@@ -93,3 +93,7 @@ def text_node_to_html_node(text_node):
         return LeafNode(text_node.text, "a", props)
     else:
         raise Exception("Couldn't find valid text type!")
+               
+        
+
+    

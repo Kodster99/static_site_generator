@@ -3,6 +3,7 @@ import unittest
 from htmlnode import HTMLNode, LeafNode, ParentNode
 
 
+
 class TestHTMLNode(unittest.TestCase):
     def test_props_to_html(self):
         node = HTMLNode(
@@ -92,7 +93,7 @@ class TestHTMLNode(unittest.TestCase):
         node = LeafNode(
         tag="p",
         value="Simple paragraph"
-    )
+        )
         assert node.to_html() == '<p>Simple paragraph</p>'
 
     def test_parent_node_children(self):
@@ -156,3 +157,5 @@ class TestHTMLNode(unittest.TestCase):
     # Assertions to test the behavior, e.g., converting to HTML
         self.assertEqual(node.to_html(), "<p><b>Bold text</b>Regular text<div><i>Italic text</i></div><div><r>Raw text</r></div></p>")
             
+
+    
